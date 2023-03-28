@@ -4,13 +4,14 @@
   <head>
     <title>TwitOff - {{ title }}</title>
     <link rel="stylesheet" href="https://unpkg.com/picnic" />
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
   </head>
 
   <body>
     <nav>
       <a href="/" class="brand"><span>TwitOff!</span></a>
 
-      <!-- responsive-->
+      <!-- responsive -->
       <input id="bmenub" type="checkbox" class="show">
       <label for="bmenub" class="burger pseudo button">Menu</label>
 
@@ -20,38 +21,71 @@
       </div>
     </nav>
 
-    <article class="flex two" style="padding: 3em 1em;">
+    <article style="padding: 3em 1em;">
       {% block content %}
+      <!--Introduction to project-->
+      <div style="padding: 0.5em 1em">
+        <p>
+          Twitter users go head-to-head to see who would have been more likely
+          to tweet a hypothical message.
+          <br> Using their most recent tweets, processed
+          through the SpaCy language model, and classified by a logistic curve, we
+          can infer the probability that any text could have been written by any choicen user.
+        </p>
+      </div>
+      <hr/>
+      <!--Twitoff-->
       <div>
-        <h1>{{ title }}</h1>
+        <h2>Compare two users</h2>
         <form action="/compare" method="post">
-          <select name="user0">
-            {% for user in users %}
-            <option value="{{ user.username }}">{{ user.username }}</option>
-            {% endfor %}
-          </select>
-          <select name="user1">
-            {% for user in users %}
-            <option value="{{ user.username }}">{{ user.username }}</option>
-            {% endfor %}
-          </select>
-          <input type="text" name="tweet_text" placeholder="Tweet text to predict">
+          <div class="flex two">
+            <div>
+                <select name="user0">
+                  {% for user in users %}
+                  <option value="{{ user.username }}">{{ user.username }}</option>
+                  {% endfor %}
+                </select>
+                <select name="user1">
+                  {% for user in users %}
+                  <option value="{{ user.username }}">{{ user.username }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div>
+              <input type="text" name="tweet_text" placeholder="Tweet text to predict">
+            </div>
+          </div>
           <input type="submit" value="Compare Users">
         </form>
       </div>
+      <hr/>
+      <!--Manage Users-->
       <div>
-        <h2>Users</h2>
-        {% for user in users %}
-        <a href="/user/{{ user.username }}"><span class="stack">{{ user.name }}</span></a>
-        {% endfor %}
+        <h1>Users</h2>
         <form action="/user" method="post">
           <input type="text" name="user_name" placeholder="User to add">
           <input type="submit" value="Add User">
         </form>
+
+        <h3>Users added so far:</h3>
+        <div class="flex three">
+          {% for user in users %}
+          <div style="padding: 1em">
+            <div class="card">
+              <div>
+                <img src="{{ user.image_url}}" style="display: block; float: left; padding-right: 1em;"/>
+                <span>{{ user.name }}</span><br/>
+                <span>@{{ user.username }}</span>
+              </div>
+              <a href="/user/{{ user.username }}" class="button stack">See Tweets</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
       {% endblock %}
     </article>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/umbrellajs"/> -->
+    
   </body>
 
 </html>

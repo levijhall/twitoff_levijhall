@@ -29,7 +29,7 @@ def add_or_update_user(username):
             db_user = User(id=twitter_user.id,
                            username=username,
                            name=twitter_user.name,
-                           image_url=twitter_user.profile_image_url_https)
+                           image_url=twitter_user.profile_image_url)
 
         # add the user to the database
         # this won't re-add a user if they've already been added
