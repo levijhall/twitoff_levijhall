@@ -44,7 +44,7 @@ def create_app():
         for username in [user.username for user in users]:
             add_or_update_user(username)
 
-        return render_template('base.html', title='Users Updated')
+        return render_template('base.html', title='Users Updated', users=users)
 
     @app.route('/user', methods=['POST'])
     @app.route('/user/<username>', methods=['GET'])
