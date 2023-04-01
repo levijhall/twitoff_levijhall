@@ -3,6 +3,25 @@
 {% block content %}
   <div id="prediction">
     <h1>{{ title }}</h1>
-    <p>{{ message }}</p>
+    <p>{{ message }}.</p>
+    <p>To assess how well the model actually performs,
+      20% of the data for each user was left out of the training data.
+      This unseen data can then be ran through the model,
+      and the outcomes recorded. Since we know who wrote it,
+      be can get a good idea of how well the model is performing.
+      We can display our results in what is refered to as a Confusion Matrix,
+      which is a table showing how many of the tweets for each user was
+      predicted to be from any of them. In this case,
+      the upper left quadrant represents how many tweets from {{ user0 }} was
+      correctly predicted to written by them,
+      and the upper right quedrant shows how many tweets from {{ uers0 }} was
+      incorrectly predicted to be written by {{ user1 }}.
+      In that way, a perfect model would be able to always assign each tweet
+      to its original writter. But due to how much data is available,
+      how that data is represented, or even the originality of the tweet, this
+      is unlikely to happen unless the topics discussed have no
+      relation to each other.
+    </p>
+    <img src="img/plot.png?v={{ values }}&u0={{ user0 }}&u1={{ user1 }}" alt="Confusion Matrix"/>
   </div>
 {% endblock %}
